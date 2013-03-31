@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>OpenTok</title>
+    <script src='http://static.opentok.com/v1.1/js/TB.min.js'></script>
+  </head>
+  <body>
+    <p>{{ s }}</p>
+    <div id="myPublisherDiv"></div>
+
+        <script type="text/javascript">
+          // Initialize API key, session, and token...
+          // Think of a session as a room, and a token as the key to get in to the room
+          // Sessions and tokens are generated on your server and passed down to the client
+          var apiKey = "1273231";
+          var sessionId = "{{ s }}";
+          var token = "{{ t }}";
+		 // var token2 = "{{ t2 }}";
+
+          // Initialize session, set up event listeners, and connect
+          var session = TB.initSession(sessionId);
+          session.addEventListener('sessionConnected', sessionConnectedHandler);
+          session.connect(apiKey, token);
+		 // session.connect(apiKey, token2);
+          
+          function sessionConnectedHandler(event) {
+            var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
+            session.publish(publisher);
+          }
+        </script>
+  </body>
+</html>
